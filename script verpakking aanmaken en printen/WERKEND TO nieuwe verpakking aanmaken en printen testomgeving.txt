@@ -1,0 +1,18 @@
+import xmlrpc.client
+import odoorpc
+odoo = odoorpc.ODOO('192.168.0.250', port=8069)
+url = "http://192.168.0.250:8069/xmlrpc"
+db = 'TimTest'
+uid = 1
+username = 'odoo@softslings.com'
+password = 'Cr51tive'
+model = 'stock.quant.package'
+odoo.login('TimTest', 'odoo@softslings.com', 'Cr51tive')
+common = xmlrpc.client.ServerProxy(url +'/common')
+models = xmlrpc.client.ServerProxy(url +'/object')
+nieuweverpakking = models.execute_kw(db, uid, password, model , 'create', [{}])
+report = odoo.report.download('stock.report_package_barcode_small', [nieuweverpakking])
+
+
+
+
